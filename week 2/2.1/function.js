@@ -1,3 +1,4 @@
+// synchronous js code : executed in the order it is written : line by line
 // function to add 2 numbers 
 
 function sum(a,b){
