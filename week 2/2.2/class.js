@@ -48,7 +48,7 @@ function area1(rect){
 }
 
 function paint1(rect){
-    return " color is "+rect.color;
+    return "color is "+rect.color;
 }
 
 console.log(area1(rect1));
