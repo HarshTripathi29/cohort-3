@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>todo list</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+  <input type="text"/>
+  <button onclick="addTodo()">Add todo </button>
+
+</body>
+
+<script>
+
+function addTodo(){
+  // get the value from the input feild 
+  const value = document.querySelector("input").value;
+  // create a div element to add 
+  const newTodoDivEl = document.createElement("div");
+  // insert the value in the div element
+  newTodoDivEl.innerHTML = value;
+  // add the div element in the body
+  document.querySelector("body").appendChild(newTodoDivEl);
+}
+
+</script>
+
+</html>
