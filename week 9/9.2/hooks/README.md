@@ -1,12 +1,52 @@
-# React + Vite
+# toggle Counter with useEffect
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1️⃣ Mounting (Component Appears in the UI)
 
-Currently, two official plugins are available:
+What happens?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    App component mounts first.
 
-## Expanding the ESLint configuration
+    Counter component mounts when counterVisible is true.
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+    When Counter mounts:
+
+        useEffect inside Counter runs.
+
+        setInterval starts, updating count every second.
+
+        console.log("Counter Mounted") would run if added inside the effect.
+
+
+2️⃣ Unmounting (Component is Removed from the UI)
+
+What happens?
+
+    After 5 seconds, setCounterVisible toggles false, removing Counter.
+
+    Counter unmounts.
+
+    The useEffect cleanup function runs:
+
+        clearInterval(clock) stops the interval to prevent memory leaks.
+
+        If we had console.log("Counter Unmounted"), it would run.
+
+
+3️⃣ Re-rendering (Component Updates)
+
+What happens?
+
+    Counter re-renders every second because count is updated with setCount.
+
+    When count changes, React re-renders the Counter, but it does not remount.
+
+📌 Summary of Lifecycle 
+Lifecycle	When It Happens	
+Mounting	Counter first appears	useEffect(() => {...}, []) runs once, interval starts.
+Unmounting	Counter disappears after 5 sec	Cleanup function runs (clearInterval(clock)).
+Re-rendering	count updates every second	Counter updates UI, but does not remount.
+
+🔹 Counter mounts → Starts ticking → Unmounts after 5 sec → Mounts again → Restarts from 0.
+🔹 The cleanup function prevents memory leaks by stopping old intervals.
+
+This cycle repeats every 5 seconds due to the toggling counterVisible state. 🚀
