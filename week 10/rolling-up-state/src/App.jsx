@@ -10,6 +10,8 @@ function App() {
 
 
 function LightBulb(){
+
+  // while rolling up the state we may end up defining everything in the parent : Unoptimal re renders
   const[bulbOn, setBulbOn]= useState(true);
   return <div>
     <BulbState bulbOn={bulbOn}/>
