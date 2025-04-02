@@ -16,8 +16,7 @@ function useCounter(){
 }
 
 
-function App() {
-
+function Counter(){
   const {count, increaseCount} = useCounter();
 
   return (
@@ -25,7 +24,19 @@ function App() {
       <div>
        <button onClick={increaseCount}>Increase {count}</button>
       </div>
-   
+    </>
+  )
+}
+
+function App() {
+
+  return (
+    <>
+      <div>
+        <Counter/>
+        <Counter/>
+        <Counter/>
+      </div>
     </>
   )
 }
