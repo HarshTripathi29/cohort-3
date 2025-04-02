@@ -8,7 +8,7 @@ function App() {
 
   const[currentPost, setCurrentPost]=useState(1);
 
-  const {finalData, loading} = useFetch("https://jsonplaceholder.typicode.com/posts/"+currentPost);
+  const {finalData, loading} = useFetch("https://jsonplaceholder.typicode.com/posts/"+currentPost,50);
 
   if(loading){
     return <div>
@@ -28,11 +28,9 @@ function App() {
     </>
   )
 }
-
-
   // useFetch hook would rake a url as an input and return the json or any other data
 
-function useFetch(url){
+function useFetch(url, retryTime){
 
   const[finalData, setFinalData]=useState({});
   const[loading, setLoading]=useState(true);
@@ -45,9 +43,14 @@ function useFetch(url){
     setLoading(false);
   }
 
-  useEffect(function(){
+  useEffect(()=>{
     getDetails();
   },[url]);
+
+
+  useEffect(()=>{
+    setInterval(getDetails, retryTime*1000);
+  })
 
   return {
     finalData,
