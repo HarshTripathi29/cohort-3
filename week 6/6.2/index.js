@@ -1,9 +1,14 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
+const cors = require("cors");
+const app = express();
+
+app.use(cors({
+    origin: "http://127.0.0.1:5500"
+}));
 
 const JWT_SECRET = "harsh123123";
 
-const app = express();
 app.use(express.json());
 
 const users = [];
@@ -13,7 +18,9 @@ function logger(req, res, next) {
     next();
 }
 
-// localhost:3000
+// localhost:3000 
+// to avoid the complexity of CORS
+// when a user comes to / then return him the frontend
 app.get("/", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
 })
@@ -99,6 +106,6 @@ app.get("/me", logger, auth, function(req, res) {
     })
 })
 
-app.listen(6000,function(){
-    console.log("app is running on port 6000");
+app.listen(5000,function(){
+    console.log("app is running on port 5000");
 });
