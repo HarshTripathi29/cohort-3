@@ -3,20 +3,36 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+
+// Agenda
+// 1. How to run some logic on mounting 
+// 2. How to run some logic on re-render
+// 3. How to run some logic on unmounting
+// mounting, re-rendering, unmounting
 function App() {
   // 1. define the state varibales
+  // count is initialized only once during the first render 
+  // the component may re render multiple times but this state's initial value wont change
   const [count, setCount] = useState(0)
 
-  // loads on mounting
+
+  // running on every render => after 10 secs
+  console.log("counter");
+
+  // loads on mounting => run this logic only when the component mounts\
+  // guard the setInterval from re-renders
+  // does not matters how many times it renders. setInterval runs only once 
+
   useEffect(function(){
     setInterval(function(){
-    //   setCount(count=>count+1)
-    // here why we are defining a function instead of just passing the state change.
+    //  setCount(count=>count+1)
+    //  here why we are defining a function instead of just passing the state change.
     //  => for some reasons related to the dependency array
     setCount(function(count){
+      console.log("inside the setInterval");
       return count+1;
     })
-    },1000)
+    },10000)
     console.log("mounted");
   },[]);
 
