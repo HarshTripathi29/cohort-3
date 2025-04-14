@@ -1,1 +1,1 @@
-{"root":["./conditional.ts","./functional-args.ts","./hello.ts","./index.ts","./sum.ts"],"version":"5.8.3"}
+{"root":["./src/conditional.ts","./src/functional-args.ts","./src/hello.ts","./src/index.ts","./src/interface.ts","./src/sum.ts"],"version":"5.8.3"}
