@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -19,6 +19,9 @@ function MainApp(){
   const notificationAtomCount = useRecoilValue(notificationAtom);
   const messagingAtomCount = useRecoilValue(messagingAtom);
 
+  const totalNotifications = useMemo(()=>{
+    return networkNotificationCount+jobsAtomCount+notificationAtomCount+messagingAtomCount;
+  },[networkNotificationCount, jobsAtomCount,notificationAtomCount, messagingAtomCount])
 
   return (
     <>
@@ -27,6 +30,7 @@ function MainApp(){
        <button>Jobs ({jobsAtomCount})</button>
        <button>Messaging ({messagingAtomCount})</button>
        <button>Notifications ({notificationAtomCount})</button>
+       <button>total notifications {totalNotifications}</button>
        <ButtonUpdater/>
       </div>
     </>
