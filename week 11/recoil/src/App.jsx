@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil'
-import { jobsAtom, messagingAtom, networkAtom, notificationAtom } from './atoms'
+import { jobsAtom, messagingAtom, networkAtom, notificationAtom, totalNotificationSelector } from './atoms'
 
 function App() {
 
@@ -18,6 +18,7 @@ function MainApp(){
   const jobsAtomCount = useRecoilValue(jobsAtom);
   const notificationAtomCount = useRecoilValue(notificationAtom);
   const messagingAtomCount = useRecoilValue(messagingAtom);
+  const totalNotificationCount = useRecoilValue(totalNotificationSelector);
 
   const totalNotifications = useMemo(()=>{
     return networkNotificationCount+jobsAtomCount+notificationAtomCount+messagingAtomCount;
@@ -30,7 +31,8 @@ function MainApp(){
        <button>Jobs ({jobsAtomCount})</button>
        <button>Messaging ({messagingAtomCount})</button>
        <button>Notifications ({notificationAtomCount})</button>
-       <button>total notifications {totalNotifications}</button>
+       <button>total notifications using memo {totalNotifications}</button>
+       <button>total notifications using selector {totalNotificationCount}</button>
        <ButtonUpdater/>
       </div>
     </>
@@ -42,7 +44,7 @@ function ButtonUpdater(){
   return <button onClick={()=>{
     setMessagingAtomCount(c=>c+1);
   }}>
-    Click to increment message
+    increment message
   </button>
 }
 
