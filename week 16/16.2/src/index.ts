@@ -1,16 +1,32 @@
+// Import WebSocketServer and WebSocket types from the 'ws' library
 import { WebSocketServer, WebSocket } from "ws";
 
-const ws = new WebSocketServer({port:8081});
+// Create a WebSocket server that listens on port 8081
+const ws = new WebSocketServer({ port: 8081 });
 
-let allSockets:WebSocket[] = [];
+// Array to keep track of all connected client sockets
+let allSockets: WebSocket[] = [];
 
-ws.on("connection",(socket)=>{
+// When a new client connects to the server
+ws.on("connection", (socket) => {
+    // Add the new socket to the list of all connected sockets
     allSockets.push(socket);
-    socket.on("message", (message)=>{
-        console.log("message recieved "+ message.toString())
-        for(let i=0; i<allSockets.length;i++){
+
+    // Listen for messages from this client
+    socket.on("message", (message) => {
+        console.log("message received " + message.toString());
+
+        // Broadcast the message to all connected clients
+        for (let i = 0; i < allSockets.length; i++) {
             const s = allSockets[i];
-            s.send(message.toString()+": sent from the server");
+            // Send the original message with an added suffix
+            s.send(message.toString() + ": sent from the server");
         }
-    })
-})
+    });
+
+    // Listen for when a client disconnects from the server
+    socket.on("close", () => {
+        // Remove the disconnected socket from the list
+        allSockets = allSockets.filter(x => x !== socket);
+    });
+});
