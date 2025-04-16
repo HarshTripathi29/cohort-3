@@ -10,12 +10,20 @@ wss.on("connection", function (socket) {
 
     // Send a message to the client every 1 second (1000 ms)
     // This message simulates a changing price of Solana (random value)
-    setInterval(() => {
-        socket.send("Current price of solana is " + Math.random());
-    }, 1000);
+    // setInterval(() => {
+    //     socket.send("Current price of solana is " + Math.random());
+    // }, 1000);
 
-    // Handle incoming messages from the client
+   //  Handle incoming messages from the client
     socket.on("message", (e) => {
         console.log(e.toString()); // Log the message received from the client
     });
+
+    // ping pong game
+
+    socket.on("message", (e)=>{
+        if(e.toString()==="ping"){
+            socket.send("pong");
+        }
+    })
 });
